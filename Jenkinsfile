@@ -25,6 +25,10 @@ pipeline{
                echo "编译..."
                echo "$hello"
                echo "${world}"
+               sh 'pwd && ls -alh' //当前在哪个文件夹，在干什么
+               sh 'printenv'
+
+
             }
         }
 
