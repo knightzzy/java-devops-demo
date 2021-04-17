@@ -5,7 +5,15 @@ pipeline{
     //任何一个代理可用就可以执行
     agent any
 
+
+
     //定义一些环境信息
+    environment {
+      hello = "123456"
+      world = "456789"
+    }
+
+
 
     //定义流水线的加工流程
     stages {
@@ -15,6 +23,8 @@ pipeline{
             steps {
                //要做的所有事情
                echo "编译..."
+               echo "$hello"
+               echo "${world}"
             }
         }
 
@@ -38,9 +48,6 @@ pipeline{
                 echo "部署..."
             }
         }
-
-
-
     }
 
 }
