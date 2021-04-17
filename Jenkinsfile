@@ -27,7 +27,8 @@ pipeline{
                echo "${world}"
                sh 'pwd && ls -alh' //当前在哪个文件夹，在干什么
                sh 'printenv'
-
+               sh "echo ${GIT_BRANCH}"
+               echo "${GIT_BRANCH}"
 
             }
         }
