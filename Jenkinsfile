@@ -13,8 +13,6 @@ pipeline{
       world = "456789"
     }
 
-
-
     //定义流水线的加工流程
     stages {
         //流水线的所有阶段
@@ -25,21 +23,18 @@ pipeline{
                sh 'java -version'
                sh 'git --version'
                sh 'docker version'
-               sh 'echo 66666'
-//                sh 'mvn -v'
+               sh 'pwd && ls -alh'
             }
         }
         //1、编译 "abc"
         stage('编译'){
+            agent {
+                docker { image 'maven:3-alpine' }
+            }
             steps {
-               //要做的所有事情
-               echo "编译..."
-               echo "$hello"
-               echo "${world}"
-               sh 'pwd && ls -alh' //当前在哪个文件夹，在干什么
-               sh 'printenv'
-               sh "echo ${GIT_BRANCH}"
-               echo "${GIT_BRANCH}"
+               //git下载来的代码目录下
+               sh 'pwd && ls -alh'
+               sh 'mvn -v'
 
             }
         }
