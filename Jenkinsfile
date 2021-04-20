@@ -33,7 +33,11 @@ pipeline{
         stage('编译'){
             //jenkins不配置任何环境的情况下，仅适用docker 兼容所有场景
             agent {
-                docker { image 'maven:3-alpine' }
+                docker {
+                    image 'maven:3-alpine'
+//                     args  '-v /a/settings.xml:/app/settings.xml'
+                    //docker run -v /a/settings.xml:/app/settings.xml
+                 }
             }
             steps {
                //git下载来的代码目录下
