@@ -7,11 +7,17 @@ pipeline{
     agent any
 
 
+
+
     //定义一些环境信息
     environment {
       hello = "123456"
       world = "456789"
       WS = "${WORKSPACE}"
+      IMAGE_VERSION = "v1.0"
+
+//引用Jenkins配置的全局秘钥信息
+      ALIYUN_SECRTE=credentials("aliyun-docker-repo")
     }
 
     //定义流水线的加工流程
@@ -74,8 +80,21 @@ pipeline{
                 sh 'docker version'
                 sh 'pwd && ls -alh'
                 sh 'docker build -t java-devops-demo .'
+
+                //镜像就可以进行保存
+
+
             }
         }
+
+         stage('推送镜像'){
+             steps {
+                sh "docker login -u ${ALIYUN_SECRTE_USR} -p ${ALIYUN_SECRTE_PSW}   registry.cn-hangzhou.aliyuncs.com"
+                sh "docker tag java-devops-demo registry.cn-hangzhou.aliyuncs.com/lfy/java-devops-demo:${IMAGE_VERSION}"
+                sh "docker push registry.cn-hangzhou.aliyuncs.com/lfy/java-devops-demo:${IMAGE_VERSION}"
+
+             }
+         }
 
         //4、部署
         stage('部署'){
@@ -153,6 +172,15 @@ pipeline{
                     </table>
                 </body>
                 </html>''', subject: '${ENV, var="JOB_NAME"}-第${BUILD_NUMBER}次构建日志', to: '17512080612@163.com'
+            }
+        }
+
+        stage('发布版本'){
+            steps {
+                // 手动输入版本【参数化构建】
+
+                // 版本的保存。代码的保存。镜像的保存。存到远程仓库
+
             }
         }
 
