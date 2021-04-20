@@ -68,6 +68,7 @@ pipeline{
                 //检查Jenkins的docker命令是否能运行
                 sh 'docker version'
                 sh 'pwd && ls -alh'
+                sh 'docker build -t java-devops-demo .'
             }
         }
 
