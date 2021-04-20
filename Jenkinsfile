@@ -87,6 +87,8 @@ pipeline{
             }
         }
 
+
+
          stage('推送镜像'){
          //没有起容器代理，默认就是jenkins环境
              //step里面卡点这么写
@@ -109,9 +111,25 @@ pipeline{
                 echo "$APP_VER"
 
 
+                //脚本方式进行判断，和具体逻辑
+                // 远程触发，自动分析是哪个分支，如果是master就部署生产，dev就集成测试等
+                // gulimall
+                //    mall-order
+                //    mall-user
+                //    xx 100个微服务
+                //  哪一个微服务代码提交了部署哪一个微服务，不用手工干预，只需要一个jenkinsfile
+                //Generic Webhook Trigger 远程触发jenkins，jenkins获取当前提交的分支，和所有分支
+                // gitee会告诉我们这次 add了哪些，modify了哪些，delete了哪些，
+                // add了哪些，modify了哪些，delete了哪些， 自己判断这些修改的文件在哪个模块下
+                //对这个模块进行持续集成
+
+                //Generic Webhook Trigger + script脚本 + 其他已讲过的内容 + 其他自己看看官网 = 搞定
+                //别人提交一个issue，jenkins触发 自动把issue做成 fix分支，让程序员自己去修改
+                //所有东西都是模板
                 script {
                    //groovy
                    def  where = "${DEPLOY_WHERE}"
+
                    if (where == "bj-01"){
                     sh "echo 我帮你部署到 bj-01 区了"
                    }else if(where == "sh-02"){
