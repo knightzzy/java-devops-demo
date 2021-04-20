@@ -11,6 +11,7 @@ pipeline{
     environment {
       hello = "123456"
       world = "456789"
+      WS = "${WORKSPACE}"
     }
 
     //定义流水线的加工流程
@@ -46,8 +47,8 @@ pipeline{
                sh 'mvn -v'
                //打包，jar.。默认是从maven中央仓库下载。 jenkins目录+容器目录；-s指定容器内位置
                //只要jenkins迁移，不会对我们产生任何影响
-               sh "echo 默认的工作目录：${WORKSPACE}"
-               sh 'cd ${WORKSPACE} && mvn clean package -s "/var/jenkins_home/appconfig/maven/settings.xml"  -Dmaven.test.skip=true '
+               sh "echo 默认的工作目录：${WS}"
+               sh 'cd ${WS} && mvn clean package -s "/var/jenkins_home/appconfig/maven/settings.xml"  -Dmaven.test.skip=true '
                //jar包推送给maven repo ，nexus
                //如何让他适用阿里云镜像源
 
