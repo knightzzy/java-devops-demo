@@ -88,6 +88,7 @@ pipeline{
         }
 
          stage('推送镜像'){
+         //没有起容器代理，默认就是jenkins环境
              steps {
                 sh "docker login -u ${ALIYUN_SECRTE_USR} -p ${ALIYUN_SECRTE_PSW}   registry.cn-hangzhou.aliyuncs.com"
                 sh "docker tag java-devops-demo registry.cn-hangzhou.aliyuncs.com/lfy/java-devops-demo:${IMAGE_VERSION}"
@@ -178,7 +179,7 @@ pipeline{
         stage('发布版本'){
             steps {
                 // 手动输入版本【参数化构建】
-
+                sh "发布版本"
                 // 版本的保存。代码的保存。镜像的保存。存到远程仓库
 
             }
