@@ -89,7 +89,7 @@ pipeline{
             post {
               failure {
                 // One or more steps need to be included within each condition's block.
-                echo "炸了..."
+                echo "炸了.. ."
               }
 
               success {
