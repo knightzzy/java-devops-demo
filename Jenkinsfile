@@ -90,9 +90,10 @@ pipeline{
          stage('推送镜像'){
          //没有起容器代理，默认就是jenkins环境
              steps {
+                input message: '需要推送远程镜像吗？', ok: '需要', parameters: [text(defaultValue: 'v1.0', description: '生产环境需要部署的版本', name: 'APP_VER')]
                 sh "docker login -u ${ALIYUN_SECRTE_USR} -p ${ALIYUN_SECRTE_PSW}   registry.cn-hangzhou.aliyuncs.com"
-                sh "docker tag java-devops-demo registry.cn-hangzhou.aliyuncs.com/lfy/java-devops-demo:${IMAGE_VERSION}"
-                sh "docker push registry.cn-hangzhou.aliyuncs.com/lfy/java-devops-demo:${IMAGE_VERSION}"
+                sh "docker tag java-devops-demo registry.cn-hangzhou.aliyuncs.com/lfy/java-devops-demo:${APP_VER}"
+                sh "docker push registry.cn-hangzhou.aliyuncs.com/lfy/java-devops-demo:${APP_VER}"
 
              }
          }
@@ -178,8 +179,8 @@ pipeline{
 
         stage('部署到生产环境吗？'){
             steps {
-                // 手动输入版本【参数化构建】
-                input message: '需要部署到生产环境吗？', ok: '需要', parameters: [text(defaultValue: 'v1.0', description: '生产环境需要部署的版本', name: 'IMAGE_VERSION')]
+                // 手动输入版本【参数化构建】,推荐生成器
+
 //                 input {
 //                     message "需要部署到生产环境吗?"
 //                     ok "是的，赶紧部署"
