@@ -53,9 +53,10 @@ pipeline{
             }
         }
 
-        //2、测试
+        //2、测试，每一个 stage的开始，都会重置到默认的WORKSPACE位置
         stage('测试'){
             steps {
+                sh 'pwd && ls -alh'
                 echo "测试..."
             }
         }
