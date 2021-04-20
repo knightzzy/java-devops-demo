@@ -106,4 +106,13 @@ pipeline{
         }
     }
 
+    post {
+      failure {
+        // One or more steps need to be included within each condition's block.
+      }
+      success {
+        echo "这个阶段成了.... $currentBuild.result"
+      }
+    }
+
 }
