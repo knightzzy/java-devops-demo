@@ -179,15 +179,16 @@ pipeline{
         stage('部署到生产环境吗？'){
             steps {
                 // 手动输入版本【参数化构建】
-                input {
-                    message "需要部署到生产环境吗?"
-                    ok "是的，赶紧部署"
-//                     submitter "alice,bob"
-                    parameters {
-                        //手动传入的参数
-                        string(name: 'APP_VERSION', defaultValue: 'v1.0', description: '请指定生产版本号')
-                    }
-                }
+                input message: '需要部署到生产环境吗？', ok: '需要', parameters: [text(defaultValue: 'v1.0', description: '生产环境需要部署的版本', name: 'IMAGE_VERSION')]
+//                 input {
+//                     message "需要部署到生产环境吗?"
+//                     ok "是的，赶紧部署"
+// //                     submitter "alice,bob"
+//                     parameters {
+//                         //手动传入的参数
+//                         string(name: 'APP_VERSION', defaultValue: 'v1.0', description: '请指定生产版本号')
+//                     }
+//                 }
                 sh "echo 发布版本咯......"
                 // 版本的保存。代码的保存。镜像的保存。存到远程仓库
 
