@@ -185,7 +185,7 @@ pipeline{
 //                     submitter "alice,bob"
                     parameters {
                         //手动传入的参数
-                        string(name: 'IMAGE_VERSION', defaultValue: 'v1.0', description: '请指定生产版本号')
+                        string(name: 'APP_VERSION', defaultValue: 'v1.0', description: '请指定生产版本号')
                     }
                 }
                 sh "echo 发布版本咯......"
