@@ -109,10 +109,10 @@ pipeline{
 
         post {
           failure {
-            echo "这个阶段完蛋了.... $currentBuild.result"
+            echo "这个阶段 完蛋了.... $currentBuild.result"
           }
           success {
-            echo "这个阶段成了.... $currentBuild.result"
+            echo "这个阶段 成了.... $currentBuild.result"
           }
         }
 
