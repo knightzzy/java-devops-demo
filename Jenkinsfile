@@ -3,8 +3,8 @@ pipeline{
     //全部的CICD流程都需要在这里定义
 
     //任何一个代理可用就可以执行
+   // agent none  //以后所有stage都必须指定自己的
     agent any
-
 
 
     //定义一些环境信息
@@ -24,6 +24,7 @@ pipeline{
                sh 'git --version'
                sh 'docker version'
                sh 'pwd && ls -alh'
+               sh ''
             }
         }
         //1、编译 "abc"
