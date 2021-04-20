@@ -48,6 +48,9 @@ pipeline{
                //打包，jar.。默认是从maven中央仓库下载。 jenkins目录+容器目录；-s指定容器内位置
                //只要jenkins迁移，不会对我们产生任何影响
                sh "echo 默认的工作目录：${WS}"
+//                sh 'cd ${WS}'
+               //workdir
+               //每一行指令都是基于当前环境信息。和上下指令无关
                sh 'cd ${WS} && mvn clean package -s "/var/jenkins_home/appconfig/maven/settings.xml"  -Dmaven.test.skip=true '
                //jar包推送给maven repo ，nexus
                //如何让他适用阿里云镜像源
