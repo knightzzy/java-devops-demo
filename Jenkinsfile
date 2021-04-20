@@ -24,7 +24,8 @@ pipeline{
                sh 'git --version'
                sh 'docker version'
                sh 'pwd && ls -alh'
-               sh ''
+               sh 'echo $hello'
+               sh 'echo ${world}'
             }
         }
         //1、编译 "abc"
