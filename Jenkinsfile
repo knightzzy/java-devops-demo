@@ -39,9 +39,10 @@ pipeline{
                //git下载来的代码目录下
                sh 'pwd && ls -alh'
                sh 'mvn -v'
-               //打包，jar
-               sh 'mvn clean package -Dmaven.test.skip=true '
+               //打包，jar.。默认是从maven中央仓库下载。
+               sh 'mvn clean package -s "/var/jenkins_home/appconfig/maven/settings.xml"  -Dmaven.test.skip=true '
                //jar包推送给maven repo ，nexus
+               //如何让他适用阿里云镜像源
 
             }
         }
