@@ -102,7 +102,7 @@ pipeline{
         stage("发送报告"){
             steps {
                 //短信通知，购买api接口即可
-                sh 'curl -i -k -X POST 'https://gyytz.market.alicloudapi.com/sms/smsSend?mobile=mobile&param=**code**%3A12345%2C**minute**%3A5&smsSignId=2e65b1bb3d054466b82f0c9d125465e2&templateId=908e94ccf08b4476ba6c876d13f084ad'  -H 'Authorization:APPCODE dddddddd''
+//                 sh 'curl -i -k -X POST 'https://gyytz.market.alicloudapi.com/sms/smsSend?mobile=mobile&param=**code**%3A12345%2C**minute**%3A5&smsSignId=2e65b1bb3d054466b82f0c9d125465e2&templateId=908e94ccf08b4476ba6c876d13f084ad'  -H 'Authorization:APPCODE dddddddd''
                 //REST API 所有都行
 //                 sh 'curl '
                 echo '准备发送报告'
