@@ -104,15 +104,17 @@ pipeline{
                 echo '准备发送报告'
             }
         }
+
+        post {
+          failure {
+            echo "这个阶段完蛋了.... $currentBuild.result"
+          }
+          success {
+            echo "这个阶段成了.... $currentBuild.result"
+          }
+        }
     }
 
-    post {
-      failure {
-        echo "这个阶段完蛋了.... $currentBuild.result"
-      }
-      success {
-        echo "这个阶段成了.... $currentBuild.result"
-      }
-    }
+
 
 }
