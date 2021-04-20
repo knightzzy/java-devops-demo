@@ -31,7 +31,7 @@ pipeline{
         }
         //1、编译 "abc"
         stage('编译'){
-            //jenkins不配置任何环境的情况下，仅适用docker 兼容所有场景
+            //jenkins不配置任何环境的情况下， 仅适用docker 兼容所有场景
             agent {
                 docker {
                     image 'maven:3-alpine'
