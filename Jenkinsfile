@@ -84,6 +84,25 @@ pipeline{
                 sh 'docker rm -f java-devops-demo-dev'
                 sh 'docker run -d -p 8888:8080 --name java-devops-demo-dev java-devops-demo'
             }
+
+            //后置执行
+            post {
+              failure {
+                // One or more steps need to be included within each condition's block.
+                echo "炸了..."
+              }
+
+              success {
+                echo "成了..."
+              }
+            }
+        }
+
+        //5、推送报告
+        stage("发送报告"){
+            steps {
+
+            }
         }
     }
 
