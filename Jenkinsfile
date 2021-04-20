@@ -89,7 +89,17 @@ pipeline{
 
          stage('推送镜像'){
          //没有起容器代理，默认就是jenkins环境
-             input message: '需要推送远程镜像吗？', ok: '需要', parameters: [text(defaultValue: 'v1.0', description: '生产环境需要部署的版本', name: 'APP_VER')]
+             //step里面卡点这么写
+//              input message: '需要推送远程镜像吗？', ok: '需要', parameters: [text(defaultValue: 'v1.0', description: '生产环境需要部署的版本', name: 'APP_VER')]
+             input {
+                 message "需要推送远程镜像吗?"
+                 ok "需要"
+                 parameters {
+                     string(name: 'APP_VER', defaultValue: 'v1.0', description: '生产环境需要部署的版本')
+                 }
+             }
+
+
              steps {
                 //false就直接结束
 
