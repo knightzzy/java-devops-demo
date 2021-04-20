@@ -92,7 +92,6 @@ pipeline{
              //step里面卡点这么写
 //              input message: '需要推送远程镜像吗？', ok: '需要', parameters: [text(defaultValue: 'v1.0', description: '生产环境需要部署的版本', name: 'APP_VER')]
 
-
              //step外面这么写
              input {
                  message "需要推送远程镜像吗?"
@@ -108,8 +107,7 @@ pipeline{
                 //false就直接结束
 
                 echo "$APP_VER"
-                sh "docker login -u ${ALIYUN_SECRTE_USR} -p ${ALIYUN_SECRTE_PSW}   registry.cn-hangzhou.aliyuncs.com"
-                sh "docker tag java-devops-demo registry.cn-hangzhou.aliyuncs.com/lfy/java-devops-demo:${APP_VER}"
+
 
                 script {
                    //groovy
@@ -119,7 +117,13 @@ pipeline{
                    }else if(where == "sh-02"){
                    sh "echo 我帮你部署到 sh-02 区了"
                    }else{
-                   sh "echo 没人要的，我帮你部署到 wuhan-01 区了"
+                        sh "echo 没人要的，我帮你部署到 wuhan-01 区了"
+//                    sh "docker push registry.cn-hangzhou.aliyuncs.com/lfy/java-devops-demo:${APP_VER}"
+                        withCredentials([usernamePassword(credentialsId: 'aliyun-docker-repo', passwordVariable: 'ali_pwd', usernameVariable: 'ali_user')]) {
+                            // some block
+                             sh "docker login -u ${ali_user} -p ${ali_pwd}   registry.cn-hangzhou.aliyuncs.com"
+//                              sh "docker tag java-devops-demo registry.cn-hangzhou.aliyuncs.com/lfy/java-devops-demo:${APP_VER}"
+                        }
                    }
                 }
 
