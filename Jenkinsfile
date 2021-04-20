@@ -105,6 +105,8 @@ pipeline{
             }
         }
 
+    }
+
         post {
           failure {
             echo "这个阶段完蛋了.... $currentBuild.result"
@@ -113,8 +115,6 @@ pipeline{
             echo "这个阶段成了.... $currentBuild.result"
           }
         }
-    }
-
 
 
 }
