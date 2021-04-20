@@ -91,11 +91,15 @@ pipeline{
          //没有起容器代理，默认就是jenkins环境
              //step里面卡点这么写
 //              input message: '需要推送远程镜像吗？', ok: '需要', parameters: [text(defaultValue: 'v1.0', description: '生产环境需要部署的版本', name: 'APP_VER')]
+
+
+             //step外面这么写
              input {
                  message "需要推送远程镜像吗?"
                  ok "需要"
                  parameters {
                      string(name: 'APP_VER', defaultValue: 'v1.0', description: '生产环境需要部署的版本')
+                     choice choices: ['bj-01', 'sh-02', 'wuhan-01'], description: '部署的大区', name: 'DEPLOY_WHERE'
                  }
              }
 
@@ -106,7 +110,20 @@ pipeline{
                 echo "$APP_VER"
                 sh "docker login -u ${ALIYUN_SECRTE_USR} -p ${ALIYUN_SECRTE_PSW}   registry.cn-hangzhou.aliyuncs.com"
                 sh "docker tag java-devops-demo registry.cn-hangzhou.aliyuncs.com/lfy/java-devops-demo:${APP_VER}"
-                sh "docker push registry.cn-hangzhou.aliyuncs.com/lfy/java-devops-demo:${APP_VER}"
+
+                script {
+                   //groovy
+                   def  where = "${DEPLOY_WHERE}"
+                   if (where == "bj-01"){
+                    sh "echo 我帮你部署到 bj-01 区了"
+                   }else if(where == "sh-02"){
+                   sh "echo 我帮你部署到 sh-02 区了"
+                   }else{
+                   sh "echo 没人要的，我帮你部署到 wuhan-01 区了"
+                   }
+                }
+
+//                 sh "docker push registry.cn-hangzhou.aliyuncs.com/lfy/java-devops-demo:${APP_VER}"
 
              }
          }
