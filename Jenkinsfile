@@ -25,12 +25,13 @@ pipeline{
                sh 'docker version'
                sh 'pwd && ls -alh'
                sh "echo $hello"
-
+               //未来，凡是需要取变量值的时候，都用双引号
                sh 'echo ${world}'
             }
         }
         //1、编译 "abc"
         stage('编译'){
+            //jenkins不配置任何环境的情况下，仅适用docker 兼容所有场景
             agent {
                 docker { image 'maven:3-alpine' }
             }
@@ -38,6 +39,9 @@ pipeline{
                //git下载来的代码目录下
                sh 'pwd && ls -alh'
                sh 'mvn -v'
+               //打包，jar
+               sh 'mvn clean package -Dmaven.test.skip=true '
+               //jar包推送给maven repo ，nexus
 
             }
         }
@@ -50,9 +54,12 @@ pipeline{
         }
 
         //3、打包
-        stage('打包'){
+        stage('生成镜像'){
             steps {
                 echo "打包..."
+                //检查Jenkins的docker命令是否能运行
+                sh 'docker version'
+                sh 'pwd && ls -alh'
             }
         }
 
